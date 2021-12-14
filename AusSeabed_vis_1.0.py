@@ -2,7 +2,7 @@
 """
 Created on Mon Dec  6 16:37:42 2021
 
-@author: wil9fd
+@author: Samson Williams
 
 @organisation: CSIRO
 
@@ -23,12 +23,14 @@ from osgeo import gdal
 import os
 import glob
 import pathlib
+import subprocess
  
 # Start timer
 t0 = time.perf_counter()
 
 
 # Path setup
+subprocess.check_call('cd /mnt/', shell=True)
 # Prompt for entering voyage name
 VOYAGE_ID = input('\nPLEASE ENTER THE VOYAGE ID:\n').lower()
 ROOT = "D:/reference/AusSeabed/"
