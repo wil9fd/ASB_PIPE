@@ -46,7 +46,7 @@ def ausseabed_vis(voyage_input):
     Author: Samson Williams 
     """
     
-    ROOT = "$HOME/datasets/work/ncmi-gsm/reference/AusSeabed/"
+    ROOT = "/datasets/work/ncmi-gsm/reference/AusSeabed/"
     BRANCH = "/FP Geotiff"
     INPATH = ROOT + voyage_input + BRANCH
     
@@ -54,7 +54,7 @@ def ausseabed_vis(voyage_input):
     while not pathlib.Path(INPATH).exists():
         print("\nI can't find the voyage ID: " + voyage_input)
         VOYAGE_ID = input('\nPLEASE ENTER THE VOYAGE ID AGAIN OR TYPE EXIT TO LEAVE:\n').lower()
-        ROOT = "/reference/AusSeabed/"
+        ROOT = "/datasets/work/ncmi-gsm/reference/AusSeabed/"
         BRANCH = "/FP Geotiff"
         INPATH = ROOT + VOYAGE_ID + BRANCH
         if VOYAGE_ID == "exit":
