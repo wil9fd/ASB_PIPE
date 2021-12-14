@@ -46,7 +46,7 @@ def ausseabed_vis(voyage_input):
     Author: Samson Williams 
     """
     
-    ROOT = "$HOME/mnt/datasets/work/ncmi-gsm/reference/AusSeabed/"
+    ROOT = "$HOME/datasets/work/ncmi-gsm/reference/AusSeabed/"
     BRANCH = "/FP Geotiff"
     INPATH = ROOT + voyage_input + BRANCH
     
