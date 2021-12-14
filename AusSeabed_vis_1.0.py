@@ -30,10 +30,12 @@ t0 = time.perf_counter()
 
 
 # Path setup
-subprocess.check_call('cd /mnt/datasets/work/ncmi-gsm/reference/AusSeabed', shell=True)
+subprocess.check_call('cd /mnt/datasets', shell=True)
+subprocess.check_call('cd work/ncmi-gsm', shell=True)
+
 # Prompt for entering voyage name
 VOYAGE_ID = input('\nPLEASE ENTER THE VOYAGE ID:\n').lower()
-ROOT = "D:/reference/AusSeabed/"
+ROOT = "/reference/AusSeabed/"
 BRANCH = "/FP Geotiff"
 INPATH = ROOT + VOYAGE_ID + BRANCH
 OUTPATH = INPATH
@@ -43,7 +45,7 @@ OUTPATH = INPATH
 while not pathlib.Path(INPATH).exists():
     print("\nI can't find the voyage ID: " + VOYAGE_ID)
     VOYAGE_ID = input('\nPLEASE ENTER THE VOYAGE ID AGAIN OR TYPE EXIT TO LEAVE:\n').lower()
-    ROOT = "D:/reference/AusSeabed/"
+    ROOT = "/reference/AusSeabed/"
     BRANCH = "/FP Geotiff"
     INPATH = ROOT + VOYAGE_ID + BRANCH
     OUTPATH = INPATH
