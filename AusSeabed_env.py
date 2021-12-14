@@ -20,10 +20,6 @@ def conda_create(environment):
     proc = run(["conda", "create", "-y", "--name", environment], text=True, capture_output=False, check=True)
     return proc.stdout
 
-def conda_install(environment, packages):
-    proc = run(["conda", "install", "-y", "--name", environment] + packages, text=True, capture_output=False, check=True)
-    return proc.stdout
-
 def conda_install_condaforge(environment, packages):
     proc = run(["conda", "install", "-y", "-c", "conda-forge", "--name", environment] + packages, text=True, capture_output=False, check=True)
     return proc.stdout
