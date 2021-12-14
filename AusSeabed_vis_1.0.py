@@ -30,7 +30,7 @@ t0 = time.perf_counter()
 
 
 # Path setup
-subprocess.check_call('cd /mnt/', shell=True)
+subprocess.check_call('cd /mnt/datasets/work/ncmi-gsm/reference/AusSeabed', shell=True)
 # Prompt for entering voyage name
 VOYAGE_ID = input('\nPLEASE ENTER THE VOYAGE ID:\n').lower()
 ROOT = "D:/reference/AusSeabed/"
