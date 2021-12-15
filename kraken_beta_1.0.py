@@ -19,13 +19,13 @@ import os
 
 
 # Prompt for entering voyage name
-VOYAGE_ID = input('\nPLEASE ENTER THE VOYAGE ID:\n').lower()
-ROOT = "/datasets/work/ncmi-gsm/reference/AusSeabed/"
+VOYAGE_NAME = input('\nPLEASE ENTER THE VOYAGE ID:\n').lower()
+ROOT_DIR = "/datasets/work/ncmi-gsm/reference/AusSeabed/"
 
 os.mkdir(ROOT+VOYAGE_ID)
 
 for folders in ["ASCII","Backscatter","BAG","Caris CSAR data","FP Geotiff","Metadata","Shapefile"]:
-    os.mkdir(ROOT+VOYAGE_ID+"/"+folders)
+    os.mkdir(ROOT_DIR+VOYAGE_NAME+"/"+folders)
 
 """
 DO CARIS STUFF HERE TO GET CSAR AND GEOTIFFS
@@ -33,4 +33,4 @@ DO CARIS STUFF HERE TO GET CSAR AND GEOTIFFS
 
 from ausseabed_vis import make_vis_layers
 
-make_vis_layers(ROOT,VOYAGE_ID)
+make_vis_layers(ROOT_DIR,VOYAGE_NAME)
