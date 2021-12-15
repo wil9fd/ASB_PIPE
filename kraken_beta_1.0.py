@@ -22,7 +22,7 @@ import os
 VOYAGE_NAME = input('\nPLEASE ENTER THE VOYAGE ID:\n').lower()
 ROOT_DIR = "/datasets/work/ncmi-gsm/reference/AusSeabed/"
 
-os.mkdir(ROOT+VOYAGE_ID)
+os.mkdir(ROOT_DIR+VOYAGE_NAME)
 
 for folders in ["ASCII","Backscatter","BAG","Caris CSAR data","FP Geotiff","Metadata","Shapefile"]:
     os.mkdir(ROOT_DIR+VOYAGE_NAME+"/"+folders)
