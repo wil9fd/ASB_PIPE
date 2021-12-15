@@ -30,3 +30,7 @@ for folders in ["ASCII","Backscatter","BAG","Caris CSAR data","FP Geotiff","Meta
 """
 DO CARIS STUFF HERE TO GET CSAR AND GEOTIFFS
 """
+
+from ausseabed_vis import make_vis_layers
+
+make_vis_layers(ROOT,VOYAGE_ID)

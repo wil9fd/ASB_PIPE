@@ -12,7 +12,6 @@ Created on Mon Dec  6 16:37:42 2021
 @version: 1.0
 """
 
-
 ## Package Setup
 import time
 import sys
@@ -21,10 +20,8 @@ import os
 import glob
 import pathlib
  
-# Start timer
-t0 = time.perf_counter()
 
-def ausseabed_vis(voyage_input):
+def make_vis_layers(root_input, voyage_input):
 
     """
     Brief:  This function finds all '*.tiff' files for a voyage, 
@@ -38,14 +35,16 @@ def ausseabed_vis(voyage_input):
 
     Author: Samson Williams 
     """
-    
+    # Start timer
+    t0 = time.perf_counter()
+
     # ROOT is setup to be run from HPC
-    ROOT = "/datasets/work/ncmi-gsm/reference/AusSeabed/"
+    ROOT = str(root_input)
     BRANCH = "/FP Geotiff"
     INPATH = ROOT + voyage_input + BRANCH
     
     # If the voyage ID can't be found prompt again
-    while not pathlib.Path(INPATH).exists():
+    while not pathlib.Path(ROOT + voyage_input).exists():
         print("\nI can't find the voyage ID: " + voyage_input)
         VOYAGE_ID = input('\nPLEASE ENTER THE VOYAGE ID AGAIN OR TYPE EXIT TO LEAVE:\n').lower()
         INPATH = ROOT + VOYAGE_ID + BRANCH
@@ -150,4 +149,4 @@ def ausseabed_vis(voyage_input):
 # Prompt for entering voyage name
 voyage = input('\nPLEASE ENTER THE VOYAGE ID:\n').lower()
 
-ausseabed_vis(voyage)
+ausseabed_vis("/datasets/work/ncmi-gsm/reference/AusSeabed/",voyage)
