@@ -26,7 +26,3 @@ os.mkdir(ROOT+VOYAGE_ID)
 
 for folders in ["ASCII","Backscatter","BAG","Caris CSAR data","FP Geotiff","Metadata","Shapefile"]:
     os.mkdir(ROOT+VOYAGE_ID+"/"+folders)
-
-"""
-DO CARIS STUFF HERE TO GET CSAR AND GEOTIFFS
-"""
