@@ -149,4 +149,4 @@ def make_vis_layers(root_input, voyage_input):
 # Prompt for entering voyage name
 voyage = input('\nPLEASE ENTER THE VOYAGE ID:\n').lower()
 
-ausseabed_vis("/datasets/work/ncmi-gsm/reference/AusSeabed/",voyage)
+make_vis_layers("/datasets/work/ncmi-gsm/reference/AusSeabed/",voyage)
