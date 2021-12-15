@@ -8,7 +8,7 @@ Created on Mon Dec  6 16:37:42 2021
 
 @detail: Take bathymetry geotiffs and output hillshade and overlays 
 
-@version: 1.0
+@version: 0.0.1
 """
 
 ## Package Setup
