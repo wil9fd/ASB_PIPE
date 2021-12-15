@@ -11,13 +11,16 @@ Created on Mon Dec  6 16:37:42 2021
 @version: 1.0
 """
 
+
 ## Package Setup
 import time
 import sys
-from osgeo import gdal
 import os
 import glob
+import gdal
 import pathlib
+import tkinter as tk
+from tkinter import simpledialog
  
 
 def make_vis_layers(root_input, voyage_input):
@@ -151,6 +154,13 @@ def make_vis_layers(root_input, voyage_input):
     print('\nTotal completion time: {:.2f} min'.format((t1-t0)/60))
 
 # Prompt for entering voyage name
-voyage = input('\nPLEASE ENTER THE VOYAGE ID:\n').lower()
 
-make_vis_layers("D:/reference/AusSeabed/",voyage)
+
+box = tk.Tk()
+
+box.withdraw()
+# the input dialog
+USER_INP = simpledialog.askstring(title="INPUT",
+                                  prompt=("\nPLEASE ENTER THE VOYAGE ID:\n").lower())
+
+make_vis_layers("D:/reference/AusSeabed/",USER_INP)

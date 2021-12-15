@@ -149,8 +149,6 @@ def make_vis_layers(root_input, voyage_input):
     t1 = time.perf_counter()
 
     print('\nTotal completion time: {:.2f} min'.format((t1-t0)/60))
-    
-    return cog_name, hillshade_name
 
 # Prompt for entering voyage name
 voyage = input('\nPLEASE ENTER THE VOYAGE ID:\n').lower()
