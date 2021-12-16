@@ -14,7 +14,7 @@ Created on Mon Dec  6 16:37:42 2021
 ## Package Setup
 import time
 import sys
-from osgeo import gdal
+import gdal
 import os
 import glob
 import pathlib
