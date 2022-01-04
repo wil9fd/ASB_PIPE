@@ -23,4 +23,13 @@ from make_vis_layers import make_vis_layers
 # Prompt for entering voyage name
 voyage = input('\nPLEASE ENTER THE VOYAGE ID:\n').lower()
 
-make_vis_layers("/datasets/work/ncmi-gsm/reference/AusSeabed/",voyage)
+####################################
+test_run = input('\nIs this a test run? [y/n]\n').lower()
+
+if test_run == "y":
+    root_path = "/mnt/d/reference/Ausseabed/"
+else:
+    root_path = "/datasets/work/ncmi-gsm/reference/AusSeabed/"
+####################################
+
+make_vis_layers(root_path,voyage)
