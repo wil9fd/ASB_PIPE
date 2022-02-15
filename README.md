@@ -30,7 +30,7 @@ _**The installation and application of the pipeline are performed through PUTTY 
 * Login to the MBSystem server 
     * See (https://confluence.csiro.au/x/nDf9Xw) for help.
 * Login as prompted
-* 
+
 **Install conda and setup the ASB environment in HPC's PUTTY shell as previously described via;**
 ```
 git clone -c core.autocrlf=false https://github.com/wil9fd/ASB_PIPE.git
