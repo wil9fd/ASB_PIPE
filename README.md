@@ -33,7 +33,7 @@ _**The installation and application of the pipeline are performed through PUTTY 
 
 **Install conda and setup the ASB environment in HPC's PUTTY shell as previously described via;**
 ```
-git clone -c core.autocrlf=false https://github.com/wil9fd/ASB_PIPE.git
+git clone -c core.autocrlf=false https://bitbucket.csiro.au/scm/gsm/asb_pipe.git
 bash ASB_PIPE/setup.sh
 
 ```
