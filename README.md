@@ -34,8 +34,10 @@ _**The installation and application of the pipeline are performed through PUTTY 
 **Install conda and setup the ASB environment in HPC's PUTTY shell as previously described via;**
 ```
 git clone -c core.autocrlf=false https://bitbucket.csiro.au/scm/gsm/asb_pipe.git
-bash ASB_PIPE/setup.sh
-
+```
+* Enter your login details, then;
+```
+bash asb_pipe/setup.sh
 ```
 ___
 
@@ -49,7 +51,6 @@ To run a program e.g. asb_vis_beta.py you must **ensure your conda ASB env is ac
 Then run a la; 
 ```
 python asb_pipe.py
-
 ```
 >_Ensure you explicity define the path to the script. i.e. python path/to/script.py_
 
@@ -57,8 +58,8 @@ python asb_pipe.py
 Simply paste the following into PUTTY:
 ```
 cd
-rm -rf ASB_PIPE
-git clone -c core.autocrlf=false https://github.com/wil9fd/ASB_PIPE.git
+rm -rf asb_pipe
+git clone -c core.autocrlf=false https://bitbucket.csiro.au/scm/gsm/asb_pipe.git
 exec bash
 
 ```

@@ -22,6 +22,6 @@ conda install -n ASB -c conda-forge pandas=1.3.5 -y
 # Edit bashrc so that ASB is activated and cd into ASB_PIPE when shell opens
 echo "conda activate ASB" >> ~/.bashrc
 echo "conda config --set auto_activate_base false" >> ~/.bashrc
-echo "cd ASB_PIPE" >> ~/.bashrc
+echo "cd asb_pipe" >> ~/.bashrc
 
 exec bash
