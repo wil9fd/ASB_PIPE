@@ -5,10 +5,10 @@ bash /datasets/work/ncmi-gsm/reference/miniconda3/miniconda.sh -b -u -p /dataset
 rm -rf /datasets/work/ncmi-gsm/reference/miniconda3/miniconda.sh
 
 # Initialise conda
-/datasets/work/ncmi-gsm/reference/miniconda3/bin/conda init bash
-/datasets/work/ncmi-gsm/reference/miniconda3/bin/conda init zsh
-. /.bashrc
-. /.zshrc
+conda init bash
+conda init zsh
+. ~/.bashrc
+. ~/.zshrc
 conda init
 
 # Versioning for water tight opperation
