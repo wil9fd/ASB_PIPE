@@ -19,6 +19,7 @@ import os
 import glob
 import metadata as md
 import csv
+from pathlib import Path
 
 
 def import_metadata(root_input, voyage_input):
@@ -39,10 +40,15 @@ def import_metadata(root_input, voyage_input):
     # ROOT is setup to be run from HPC
     branch_1 = "/Metadata"
     branch_2 = "/Shapefile/Outputs"
+    branch_3 = "/FP Geotiff/Outputs"
     inpath_1 = root_input + voyage_input + branch_1
     inpath_2 = root_input + voyage_input + branch_2
+    inpath_3 = root_input + voyage_input + branch_3
     
-    
+    if Path(inpath_3).exists():
+        os.chdir(inpath_3)
+        ov_file_list = glob.glob("*_OV.tiff", recursive=True)
+
     os.chdir(inpath_2)
     # List all merged shapefiles and get their names
     shape_file_list = glob.glob("*_merged.shp", recursive=True)
@@ -77,6 +83,17 @@ def import_metadata(root_input, voyage_input):
                     nsmap = md.get_namespaces(meta_file)
                     survey_id = md.get_survey_id(meta_file)
                     survey_name = md.get_survey_name(meta_file)
+
+                    if Path(inpath_3).exists():
+                        for ov_file in ov_file_list:
+                          if all(parts in ov_file for parts in schema):
+                             filename = md.get_filename(ov_file)
+                    else:
+                        filename = md.get_filename('No overlay found in geotiff outputs folder')
+
+                    licence = md.get_licence()
+                    source = md.get_source()
+                    prin_invest = md.get_prin_invest()
                     start_date = md.get_start_date(meta_file, nsmap)
                     end_date = md.get_end_date(meta_file, nsmap)
                     resolution = md.get_resoution(meta_file, nsmap)
@@ -84,15 +101,15 @@ def import_metadata(root_input, voyage_input):
                     end_location = md.get_end_location(meta_file)
                     platform_class = md.get_platform_class(meta_file)
                     platform_name = md.get_platform_name(meta_file, nsmap)
-                    product_type = md.get_product_type(meta_file)
+                    instrument_type = md.get_instrument_type(meta_file)
                     sensor_type = md.get_sensor_type(meta_file, nsmap)
                     dataset_url = md.get_dataset_url(meta_file)
                     metadata_url = md.get_meta_url(meta_file)
                     vertical_datum = md.get_vertical_datum(meta_file, nsmap)
                     
                     # List the values
-                    field_values = [survey_id,survey_name,start_date,end_date,resolution,start_location, 
-                                    end_location, platform_class, platform_name, product_type, sensor_type,
+                    field_values = [survey_id,survey_name,filename,licence,source,prin_invest,start_date,end_date,resolution,start_location, 
+                                    end_location, platform_class, platform_name, instrument_type, sensor_type,
                                     dataset_url, metadata_url, vertical_datum, area]
                     
                     # Polulate the relevant fields with the respective value

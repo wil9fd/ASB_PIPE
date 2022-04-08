@@ -19,6 +19,9 @@ from osgeo import ogr
 import os
 import glob
 import pathlib
+import shapefile
+import dbf
+import re
 
 
 def merge_polys(root_input, voyage_input):
@@ -54,7 +57,10 @@ def merge_polys(root_input, voyage_input):
             #Define the input and temp file name 
             in_name = file
             stem_name = str(pathlib.Path(file).stem)
+            prefix = r'(.*?)_AusSeabed_Outputs_Shapefile_'
+            stem_name = re.sub(prefix, "",stem_name)
             out_name = inpath + '/Outputs/'+ stem_name +'_merged.shp'
+            merge_polys.filename = stem_name +'_merged.shp'
             
             # Open the shp
             shape =  gpd.read_file(in_name)
@@ -65,41 +71,63 @@ def merge_polys(root_input, voyage_input):
             schema = [
                 'SURVEY_ID',
                 'SURV_NAME',
-                'START_DATE',
-                'END_DATE',
+                'FILENAME',
+                'LICENCE',
+                'SOURCE',
+                'PRIN_INVST',
+                'DATE_START',
+                'DATE_END',
                 'RESOLUTION',
-                'START_LOC',
-                'END_LOC',
+                'LOC_START',
+                'LOC_END',
                 'PLAT_CLASS',
                 'PLAT_NAME',
-                'PROD_TYPE',
-                'SENSR_TYPE',
+                'INSTR_TYP',
+                'SENSOR_TYP',
                 'DATA_URL',
                 'META_URL',
-                'VERT_DATUM',
+                'DATUM_VERT',
                 'AREA_KM2'
+                ]
+
+            data_type = [
+                "C",
+                "C",
+                "C",
+                "C",
+                "C",
+                "C",
+                "D",
+                "D",
+                "N",
+                "C",
+                "C",
+                "C",
+                "C",
+                "C",
+                "C",
+                "C",
+                "C",
+                "C",
+                "N"
                 ]
             
             # save the GeoDataFrame
             m_poly.to_file(driver = 'ESRI Shapefile', filename = out_name)
-            
-            driver = ogr.GetDriverByName('ESRI Shapefile')
-            dataSource = driver.Open(out_name, 1)
-            
-            # Write new fields to shapefile
-            for field in schema:
-                fldDef = ogr.FieldDefn(field, ogr.OFTString)
-                
-                if field == ['AREA_KM2']:
-                    fldDef = ogr.FieldDefn(field, ogr.OFTReal)
-                    fldDef.SetPrecision(4)
-                    
-                fldDef.SetWidth(32)
-                layer = dataSource.GetLayer()
-                layer.CreateField(fldDef)
-                
-            layer.DeleteField(0)
-            
+
+            dbf_out_name = inpath + '/Outputs/'+ stem_name +'_merged.dbf'
+            with dbf.Table(dbf_out_name) as db:
+                for field_name, field_type in zip(schema,data_type):
+                    if field_type == "C":
+                        field_string = str(field_name + ' ' + field_type + '(' + '254'+')')
+                    elif field_type == "D":
+                        field_string = str(field_name + ' ' + field_type)
+                    elif field_type == "N":
+                        field_string = str(field_name + ' ' + field_type + '(' + '19, 4'+')')
+
+                    db.add_fields(field_string)
+                db.delete_fields('FID')
+         
             time_end = time.perf_counter()
             
             

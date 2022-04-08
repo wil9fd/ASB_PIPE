@@ -18,6 +18,7 @@ conda install -n ASB -c conda-forge gdal=3.4.1 -y
 conda install -n ASB -c conda-forge geopandas=0.10.2 -y
 conda install -n ASB -c conda-forge lxml=4.7.1 -y
 conda install -n ASB -c conda-forge pandas=1.3.5 -y
+conda install -n ASB -c conda-forge dbf=0.99.1 -y
 
 # Edit bashrc so that ASB is activated and cd into ASB_PIPE when shell opens
 echo "conda activate ASB" >> ~/.bashrc

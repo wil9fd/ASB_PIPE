@@ -27,7 +27,22 @@ def get_survey_id(file_name):
 def get_survey_name(file_name):
     # No indicators are in xml metadata or in file name so this is not possible
     return None
+
+def get_filename(file_name):
+    filename = str(file_name)
+    return filename
     
+def get_licence():
+    licence = "[CCBY 4.0](https://creativecommons.org/licenses/by/4.0/)"
+    return licence
+
+def get_source(): 
+    source = "CSIRO"
+    return source
+
+def get_prin_invest():
+    pass 
+
 def get_start_date(file_name, nsmap):
     root = etree.parse(file_name).getroot()
     start_date_path = 'gmd:identificationInfo/gmd:MD_DataIdentification/gmd:extent/gmd:EX_Extent/gmd:temporalElement/gmd:EX_TemporalExtent/gmd:extent/gml:TimePeriod/gml:beginPosition'
@@ -78,9 +93,11 @@ def get_platform_name(file_name, nsmap):
     platform_name = (re.match(pattern,platform_name).group(0))
     if platform_name is not None:
         platform_name = platform_name[0:-1]
+    if platform_name == "Investigator":
+        platform_name = '[Investigator](http://vocab.nerc.ac.uk/collection/C17/current/096U/1)'
     return platform_name
 
-def get_product_type(file_name):
+def get_instrument_type(file_name):
     #This tool is intended only for multibeam
     product_type = 'Multibeam'
     return product_type
@@ -88,12 +105,16 @@ def get_product_type(file_name):
 def get_sensor_type(file_name, nsmap):
     root = etree.parse(file_name).getroot()
     sensor_type_path = 'gmi:acquisitionInformation/gmi:MI_AcquisitionInformation/gmi:platform/gmi:MI_Platform/gmi:identifier/gmd:MD_Identifier/gmd:code/gco:CharacterString'
-    sensor_type = (root.find(sensor_type_path, nsmap)).text
+    sensor_type = [name.text for name in root.findall(sensor_type_path, nsmap)]
     pattern = "_(.*)$"
-    sensor_type = (re.search(pattern,sensor_type).group(0))
-    if sensor_type is not None: 
-        sensor_type = sensor_type[1:]
-    return sensor_type
+    
+    sensor = str(re.search(pattern,sensor_type[0]).group(0))
+    for extra_sensor in sensor_type[1::]:
+        sensor = sensor + (str(' & ' + str(re.search(pattern,extra_sensor).group(0))))
+
+    sensor = sensor.upper()
+    sensor = sensor.replace("_","")
+    return sensor
 
 def get_dataset_url(file_name):
     # No indicators are in xml metadata or in file name so this is not possible
