@@ -19,7 +19,6 @@ from osgeo import ogr
 import os
 import glob
 import pathlib
-import shapefile
 import dbf
 import re
 
