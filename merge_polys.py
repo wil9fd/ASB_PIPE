@@ -112,8 +112,9 @@ def merge_polys(root_input, voyage_input):
                 "N"
                 ]
             
+            out_path = pathlib.Path(out_name)
             # save the GeoDataFrame
-            m_poly.to_file(driver = 'ESRI Shapefile', filename = out_name)
+            m_poly.to_file(driver = 'ESRI Shapefile', filename = out_path)
 
             dbf_out_name = inpath + '/Outputs/'+ stem_name +'_merged.dbf'
             with dbf.Table(dbf_out_name) as db:
