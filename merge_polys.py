@@ -35,17 +35,18 @@ def merge_polys(root_input, voyage_input):
     
     Author: wil9fd
     """
+       # Start timer
     t0 = time.perf_counter()
-    
+
     # ROOT is setup to be run from HPC
     branch = "/Shapefile"
     inpath = root_input + voyage_input + branch
-    
+    if 'Outputs' not in os.listdir(inpath):
+        os.mkdir(inpath + "/Outputs")
+    outpath = inpath + "/Outputs/"
     
     # Set the working directory to the inpath
     os.chdir(inpath)
-    if 'Outputs' not in os.listdir():
-        os.mkdir('Outputs')
     
     # Loop through all the .shp files in the folder
     # Exclude files without the "cvrage(A)" suffix
