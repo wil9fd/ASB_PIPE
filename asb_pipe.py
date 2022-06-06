@@ -25,7 +25,7 @@ from import_metadata import import_metadata
 voyage = input('\nPLEASE ENTER THE VOYAGE ID:\n').lower()
 
 t0 = time.perf_counter()
-root_path = "/datasets/work/ncmi-gsm/reference/AusSeabed/"
+root_path = "//datasets/work/ncmi-gsm/reference/AusSeabed/"
 # Set root path to the ASB reference folder 
 # '''Note: this path is accessed throught putty on the HPC'''
 

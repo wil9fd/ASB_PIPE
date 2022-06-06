@@ -5,7 +5,7 @@ import sys
 # Prompt for entering voyage name
 voyage = input('\nPLEASE ENTER THE VOYAGE ID:\n').lower()
 
-root_path = "/datasets/work/ncmi-gsm/reference/AusSeabed/"
+root_path = "//datasets/work/ncmi-gsm/reference/AusSeabed/"
 # Set root path to the ASB reference folder 
 # '''Note: this path is accessed throught putty on the HPC'''
 
