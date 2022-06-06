@@ -86,8 +86,10 @@ def import_metadata(root_input, voyage_input):
 
                     if Path(inpath_3).exists():
                         for ov_file in ov_file_list:
-                          if all(parts in ov_file for parts in schema):
-                             filename = md.get_filename(ov_file)
+                            if all(parts in ov_file for parts in schema):
+                                filename = md.get_filename(ov_file)
+                            else:
+                                filename = md.get_filename('No overlay found in geotiff outputs folder')
                     else:
                         filename = md.get_filename('No overlay found in geotiff outputs folder')
 

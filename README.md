@@ -58,7 +58,7 @@ python asb_pipe.py
 # Updating:
 Simply paste the following into PUTTY:
 ```
-cd /datasets/work/ncmi-gsm/reference
+cd 
 rm -rf asb_pipe
 git clone -c core.autocrlf=false https://bitbucket.csiro.au/scm/gsm/asb_pipe.git
 exec bash
