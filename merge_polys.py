@@ -112,7 +112,7 @@ def merge_polys(root_input, voyage_input):
                 "N"
                 ]
             
-            out_path= inpath + '/Outputs/'+ stem_name + '_merged'
+
             out_path = pathlib.Path(out_path)
             # save the GeoDataFrame
             m_poly.to_file(driver = 'ESRI Shapefile', filename = out_path)
