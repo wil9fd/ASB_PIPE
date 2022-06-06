@@ -102,17 +102,27 @@ def make_vis_layers(root_input, voyage_input):
            
             if os.path.getsize(file) < 10**8:
                 image.BuildOverviews("AVERAGE", [2,4,8,16,32])
+
+                # Do the second translate for the hilshade and COG
+                translate_options2 = gdal.TranslateOptions(creationOptions = 
+                                                        ['COMPRESS=DEFLATE',
+                                                        'TILED=YES',
+                                                        'BIGTIFF=IF_SAFER',
+                                                        'COPY_SRC_OVERVIEWS=YES',
+                                                        'ZLEVEL=9'])
             else:
                 image.BuildOverviews("AVERAGE", [2,4,8,16])
-            
-            
-            # Do the second translate for the hilshade and COG
-            translate_options2 = gdal.TranslateOptions(creationOptions = 
-                                                      ['COMPRESS=DEFLATE',
-                                                       'TILED=YES',
-                                                       'BIGTIFF=IF_SAFER',
-                                                       'COPY_SRC_OVERVIEWS=YES',
+                
+                # Do the second translate for the hilshade and COG
+                translate_options2 = gdal.TranslateOptions(creationOptions = 
+                                                        ['COMPRESS=DEFLATE',
+                                                        'TILED=YES',
+                                                        'BIGTIFF=YES',
+                                                        'COPY_SRC_OVERVIEWS=YES',
                                                        'ZLEVEL=9'])
+            
+            
+            
             
             if temp_name == cog_temp:
                 print('\nFinal COG translation {:} ...'.format(file))

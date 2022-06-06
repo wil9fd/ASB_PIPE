@@ -1,8 +1,8 @@
 # Creating a miniconda directory to house everything
-mkdir -p /datasets/work/ncmi-gsm/reference/miniconda3
-wget https://repo.anaconda.com/miniconda/Miniconda3-py39_4.10.3-Linux-x86_64.sh -O /datasets/work/ncmi-gsm/reference/miniconda3/miniconda.sh
-bash /datasets/work/ncmi-gsm/reference/miniconda3/miniconda.sh -b -u -p /datasets/work/ncmi-gsm/reference/miniconda3
-rm -rf /datasets/work/ncmi-gsm/reference/miniconda3/miniconda.sh
+mkdir -p miniconda3
+wget https://repo.anaconda.com/miniconda/Miniconda3-py39_4.10.3-Linux-x86_64.sh -O miniconda3/miniconda.sh
+bash miniconda3/miniconda.sh -b -u -p miniconda3
+rm -rf miniconda3/miniconda.sh
 
 # Initialise conda
 conda init bash
@@ -23,6 +23,6 @@ conda install -n ASB -c conda-forge dbf=0.99.1 -y
 # Edit bashrc so that ASB is activated and cd into ASB_PIPE when shell opens
 echo "conda activate ASB" >> ~/.bashrc
 echo "conda config --set auto_activate_base false" >> ~/.bashrc
-echo "cd /datasets/work/ncmi-gsm/reference/asb_pipe" >> ~/.bashrc
+echo "cd asb_pipe" >> ~/.bashrc
 
 exec bash

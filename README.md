@@ -33,7 +33,7 @@ _**The installation and application of the pipeline are performed through PUTTY 
 
 **Install conda and setup the ASB environment in HPC's PUTTY shell as previously described via;**
 ```
-cd /datasets/work/ncmi-gsm/reference
+cd 
 git clone -c core.autocrlf=false https://bitbucket.csiro.au/scm/gsm/asb_pipe.git
 ```
 * Enter your login details, then;
