@@ -70,7 +70,7 @@ class ASB:
             self.geo.publish_featurestore(workspace='AusSeabed', store_name=name, pg_table=name)
             self.geo.publish_style(layer_name = name, style_name = 'BBOX', workspace = 'AusSeabed')
 
-asb = asb_geoserver()
+asb = ASB()
 asb.get_voyage_folder()
 asb.logins()
 asb.connect()
