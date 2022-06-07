@@ -4,10 +4,10 @@ import os
 import glob
 import sys
 
-class asb():
+class ASB:
 
     def __init__(self):       
-        super(asb_geoserver,self).__init__()
+        pass
 
 
     def get_voyage_folder(self):
