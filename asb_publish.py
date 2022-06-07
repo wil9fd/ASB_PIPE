@@ -2,8 +2,6 @@ from geo.Geoserver import Geoserver
 import pathlib
 import os 
 import glob
-import postgres
-import postgis
 import sys
 
 class asb_geoserver:
