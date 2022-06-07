@@ -49,7 +49,7 @@ class ASB:
         for file in glob.glob("FP Geotiff/Outputs/*OV.tiff") :
             name = pathlib.Path(file).stem
             print('\nOverlay {:} has been created and published'.format(file))
-            self.geo.create_coveragestore(layer_name = name, path = file, workspace = 'AusSeabed', overwrite=True)
+            self.geo.create_coveragestore(layer_name = name, path = file, workspace = 'AusSeabed')
             self.geo.publish_style(layer_name = name, style_name = 'Bathymetry_transparent', workspace = 'AusSeabed')
     
 
@@ -58,7 +58,7 @@ class ASB:
         for file in glob.glob("FP Geotiff/Outputs/*HS.tiff") :
             name = pathlib.Path(file).stem
             print('\nHillshade {:} has been created and published'.format(file))
-            self.geo.create_coveragestore(layer_name = name, path = file, workspace = 'AusSeabed', overwrite=True)
+            self.geo.create_coveragestore(layer_name = name, path = file, workspace = 'AusSeabed')
             self.geo.publish_style(layer_name = name, style_name = 'Bathymetry_hillshade', workspace = 'AusSeabed')
 
     def publish_shapefile(self):
@@ -66,7 +66,7 @@ class ASB:
         for file in glob.glob("Shapefile/Outputs/*.shp") :
             name = pathlib.Path(file).stem
             print('\nShapefile {:} has been created and published'.format(file))
-            self.geo.create_datastore(name = name, path = file, workspace = 'AusSeabed', overwrite=True)
+            self.geo.create_datastore(name = name, path = file, workspace = 'AusSeabed')
             self.geo.publish_featurestore(workspace='AusSeabed', store_name=name, pg_table=name)
             self.geo.publish_style(layer_name = name, style_name = 'BBOX', workspace = 'AusSeabed')
 
