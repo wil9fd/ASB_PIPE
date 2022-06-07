@@ -4,7 +4,7 @@ import os
 import glob
 import sys
 
-class asb_geoserver:
+class asb():
 
     def __init__(self):       
         super(asb_geoserver,self).__init__()
@@ -70,10 +70,10 @@ class asb_geoserver:
             self.geo.publish_featurestore(workspace='AusSeabed', store_name=name, pg_table=name)
             self.geo.publish_style(layer_name = name, style_name = 'BBOX', workspace = 'AusSeabed')
 
-
-asb_geoserver.get_voyage_folder()
-asb_geoserver.logins()
-asb_geoserver.connect()
-asb_geoserver.publish_overlays()
-asb_geoserver.publish_hillshades()
-asb_geoserver.publish_shapefile()
+asb = asb_geoserver()
+asb.get_voyage_folder()
+asb.logins()
+asb.connect()
+asb.publish_overlays()
+asb.publish_hillshades()
+asb.publish_shapefile()
