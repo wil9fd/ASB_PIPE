@@ -44,7 +44,7 @@ class ASB:
             self.logins()
     
 
-    def publish_overlays(self, file_path):
+    def publish_overlays(self):
 
         for file in glob.glob("FP Geotiff/Outputs/*OV.tiff") :
             name = pathlib.Path(file).stem
@@ -53,7 +53,7 @@ class ASB:
             self.geo.publish_style(layer_name = name, style_name = 'Bathymetry_transparent', workspace = 'AusSeabed')
     
 
-    def publish_hillshades(self, file_path):
+    def publish_hillshades(self):
 
         for file in glob.glob("FP Geotiff/Outputs/*HS.tiff") :
             name = pathlib.Path(file).stem
@@ -61,7 +61,7 @@ class ASB:
             self.geo.create_coveragestore(layer_name = name, path = file, workspace = 'AusSeabed', overwrite=True)
             self.geo.publish_style(layer_name = name, style_name = 'Bathymetry_hillshade', workspace = 'AusSeabed')
 
-    def publish_shapefile(self, file_path):
+    def publish_shapefile(self):
         
         for file in glob.glob("Shapefile/Outputs/*.shp") :
             name = pathlib.Path(file).stem
