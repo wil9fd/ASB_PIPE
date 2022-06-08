@@ -78,7 +78,7 @@ class ASB:
             with ZipFile(zip_file, 'w') as zipf:
                 zipf.write(file)
 
-        for file in glob.glob("Shapefile/Outputs/*.zip"):
+        for file in glob.glob("*.zip"):
             name = pathlib.Path(file).stem
 
             try:
