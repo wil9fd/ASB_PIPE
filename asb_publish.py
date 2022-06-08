@@ -1,4 +1,5 @@
 from geo.Geoserver import Geoserver
+from zipfile import ZipFile
 import pathlib
 import os 
 import glob
@@ -20,8 +21,8 @@ class ASB:
             print("\nI can't find the voyage ID: " + self.voyage_id)
             self.voyage_id = input('\nPLEASE ENTER THE VOYAGE ID AGAIN OR TYPE EXIT TO LEAVE:\n').lower()
     
-        if self.voyage_id == "exit":
-            sys.exit("\nBye-bye")
+            if self.voyage_id == "exit":
+                sys.exit("\nBye-bye")
 
         self.voyage_path = pathlib.Path(self.root_path + self.voyage_id)
         os.chdir(self.voyage_path)
@@ -48,28 +49,44 @@ class ASB:
 
         for file in glob.glob("FP Geotiff/Outputs/*OV.tiff") :
             name = pathlib.Path(file).stem
-            print('\nOverlay {:} has been created and published'.format(file))
-            self.geo.create_coveragestore(layer_name = name, path = file, workspace = 'AusSeabed')
-            self.geo.publish_style(layer_name = name, style_name = 'Bathymetry_transparent', workspace = 'AusSeabed')
-    
+            try:
+                self.geo.create_coveragestore(layer_name = name, path = file, workspace = 'AusSeabed')
+                self.geo.publish_style(layer_name = name, style_name = 'Bathymetry_transparent', workspace = 'AusSeabed')
+                print('\nOverlay {:} has been created and published'.format(name))
+            except Exception:
+                raise Exception
+
 
     def publish_hillshades(self):
 
         for file in glob.glob("FP Geotiff/Outputs/*HS.tiff") :
             name = pathlib.Path(file).stem
-            print('\nHillshade {:} has been created and published'.format(file))
-            self.geo.create_coveragestore(layer_name = name, path = file, workspace = 'AusSeabed')
-            self.geo.publish_style(layer_name = name, style_name = 'Bathymetry_hillshade', workspace = 'AusSeabed')
+            try: 
+                self.geo.create_coveragestore(layer_name = name, path = file, workspace = 'AusSeabed')
+                self.geo.publish_style(layer_name = name, style_name = 'Bathymetry_hillshade', workspace = 'AusSeabed')
+                print('\nHillshade {:} has been created and published'.format(name))
+            except Exception:
+                raise Exception
+
 
     def publish_shapefile(self):
-        
         for file in glob.glob("Shapefile/Outputs/*.shp") :
-            name = pathlib.Path(file).stem
-            print('\nShapefile {:} has been created and published'.format(file))
-            self.geo.create_shp_datastore(store_name = name, path = file, workspace = 'AusSeabed', file_extension = 'shp')
-            self.geo.publish_featurestore(workspace='AusSeabed', store_name=name, pg_table=name)
-            self.geo.publish_style(layer_name = name, style_name = 'BBOX', workspace = 'AusSeabed')
+            zip_file = os.path.splitext(file)[0]+'.zip'
 
+            with ZipFile(zip_file, 'w') as zipf:
+                zipf.write(file)
+
+        for file in glob.glob("Shapefile/Outputs/*.zip") :
+            name = pathlib.Path(file).stem
+
+            try:
+                self.geo.create_datastore(name = name, path = file, workspace = 'AusSeabed')
+                self.geo.publish_style(layer_name = name, style_name = 'BBOX', workspace = 'AusSeabed')
+                print('\nShapefile {:} has been created and published'.format(name))
+            except Exception:
+                raise Exception
+
+     
 asb = ASB()
 asb.get_voyage_folder()
 asb.logins()
