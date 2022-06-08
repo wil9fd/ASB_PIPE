@@ -1,4 +1,6 @@
 from geo.Geoserver import Geoserver
+from geoserver.catalog import Catalog
+import requests
 import zipfile 
 import pathlib
 import os 
@@ -40,10 +42,20 @@ class ASB:
     def connect(self):
         try:
             self.geo = Geoserver('https://www.cmar.csiro.au/geoserver', username=self.usrnm, password = self.pword)
+            self.cat = Catalog('https://www.cmar.csiro.au/geoserver/rest', username=self.usrnm, password = self.pword)
+
         except:
             print('\nGeoserver connection could not be established. Check username and password. Type exit to leave.\n')
             self.logins()
     
+
+    def change_band_name(coverage_name: str, band_name: str):
+        url = 'https://www.cmar.csiro.au/geoserver/rest/workspaces/AusSeabed/coveragestores/{:}/coverages.json'.format(coverage_name)
+        r = requests.get(url, auth = (self.usrnm, self.pword))
+        jsondict = r.json()
+        jsondict['coverage']['dimensions']['coverageDimension'][0]['name'] = band_name
+        requests.put(url, data = jsondict)
+
 
     def publish_overlays(self):
 
@@ -55,7 +67,8 @@ class ASB:
                 print('\nOverlay {:} has been created and published'.format(name))
             except Exception:
                 raise Exception
-
+            
+            self.change_band_name(coverage_name = name, band_name = 'ELEVATION')
 
     def publish_hillshades(self):
 
@@ -67,6 +80,8 @@ class ASB:
                 print('\nHillshade {:} has been created and published'.format(name))
             except Exception:
                 raise Exception
+
+            self.change_band_name(coverage_name = name, band_name = 'SHADED_RELIEF')
 
 
     def publish_shapefile(self):

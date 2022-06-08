@@ -22,6 +22,7 @@ conda install -n ASB -c conda-forge pandas=1.3.5 -y
 conda install -n ASB -c conda-forge dbf=0.99.1 -y
 conda install -n ASB -c conda-forge geoserver-rest=2.3.3 -y
 conda install -n ASB -c tethysplatform gsconfig=1.1.0 -y
+conda install -n ASB -c conda-forge requests=2.27.1 -y
 
 # Edit bashrc so that ASB is activated and cd into ASB_PIPE when shell opens
 echo "conda activate ASB" >> ~/.bashrc
