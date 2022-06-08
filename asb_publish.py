@@ -86,8 +86,6 @@ class ASB:
             except Exception:
                 raise Exception
 
-            os.remove(file)
-
      
 asb = ASB()
 asb.get_voyage_folder()
