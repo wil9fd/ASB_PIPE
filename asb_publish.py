@@ -1,5 +1,5 @@
 from geo.Geoserver import Geoserver
-from zipfile import ZipFile
+import zipfile 
 import pathlib
 import os 
 import glob
@@ -76,8 +76,8 @@ class ASB:
                     
         for stem in stem_list:
             zip_file = stem + '.zip'
-            with ZipFile(zip_file, 'w') as zipf:
-                for file in glob.glob(stem+'.*'):
+            with zipfile.ZipFile(zip_file, 'w') as zipf:
+                for file in set(glob.glob(stem+'.cpg')+glob.glob(stem+'.dbf')+glob.glob(stem+'.prj')+glob.glob(stem+'.shp')+glob.glob(stem+'.shx')):
                     zipf.write(file)
 
         for file in glob.glob("*.zip"):
