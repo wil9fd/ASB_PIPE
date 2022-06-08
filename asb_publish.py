@@ -47,7 +47,7 @@ class ASB:
 
     def publish_overlays(self):
 
-        for file in glob.glob("FP Geotiff/Outputs/*OV.tiff") :
+        for file in glob.glob("FP Geotiff/Outputs/*OV.tiff"):
             name = pathlib.Path(file).stem
             try:
                 self.geo.create_coveragestore(layer_name = name, path = file, workspace = 'AusSeabed')
@@ -59,7 +59,7 @@ class ASB:
 
     def publish_hillshades(self):
 
-        for file in glob.glob("FP Geotiff/Outputs/*HS.tiff") :
+        for file in glob.glob("FP Geotiff/Outputs/*HS.tiff"):
             name = pathlib.Path(file).stem
             try: 
                 self.geo.create_coveragestore(layer_name = name, path = file, workspace = 'AusSeabed')
@@ -70,13 +70,15 @@ class ASB:
 
 
     def publish_shapefile(self):
-        for file in glob.glob("Shapefile/Outputs/*.shp") :
-            zip_file = str(pathlib.Path(file).stem) +'.zip'
+        os.chdir(str(self.voyage_path + "/Shapefile/Outputs"))
+
+        for file in glob.glob("*.shp"):
+            zip_file = pathlib.Path(file).stem + '.zip'
 
             with ZipFile(zip_file, 'w') as zipf:
                 zipf.write(file)
 
-        for file in glob.glob("Shapefile/Outputs/*.zip") :
+        for file in glob.glob("Shapefile/Outputs/*.zip"):
             name = pathlib.Path(file).stem
 
             try:
