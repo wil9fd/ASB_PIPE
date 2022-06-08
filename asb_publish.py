@@ -70,7 +70,7 @@ class ASB:
 
 
     def publish_shapefile(self):
-        os.chdir(str(self.voyage_path + "/Shapefile/Outputs"))
+        os.chdir(str(self.voyage_path) + "/Shapefile/Outputs")
 
         for file in glob.glob("*.shp"):
             zip_file = pathlib.Path(file).stem + '.zip'
