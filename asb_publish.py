@@ -1,11 +1,13 @@
 from geo.Geoserver import Geoserver
 from geoserver.catalog import Catalog
+from xml.etree import ElementTree
 import requests
 import zipfile 
 import pathlib
 import os 
 import glob
 import sys
+import json 
 
 class ASB:
 
@@ -49,39 +51,44 @@ class ASB:
             self.logins()
     
 
-    def change_band_name(coverage_name: str, band_name: str):
-        url = 'https://www.cmar.csiro.au/geoserver/rest/workspaces/AusSeabed/coveragestores/{:}/coverages.json'.format(coverage_name)
+    def change_band_name(self, coverage_name: str, band_name: str):
+        url = 'https://www.cmar.csiro.au/geoserver/rest/workspaces/AusSeabed/coveragestores/{:}/coverages/{:}'.format(coverage_name, coverage_name)
         r = requests.get(url, auth = (self.usrnm, self.pword))
-        jsondict = r.json()
-        jsondict['coverage']['dimensions']['coverageDimension'][0]['name'] = band_name
-        requests.put(url, data = jsondict)
-
+        tree = ElementTree.fromstring(r.content)
+        tree.find('dimensions/coverageDimension/name').text = band_name
+        #tree.find('serviceConfiguration').text = 'true'
+        data = ElementTree.tostring(tree, encoding = 'unicode')
+        #jsondict = g.json()
+        #jsondict['coverage']['dimensions']['coverageDimension'][0]['name'] = band_name
+        r_change_band_name = requests.put(url, auth = (self.usrnm, self.pword), data = data, headers = {'content-type': 'text/xml'})
 
     def publish_overlays(self):
 
         for file in glob.glob("FP Geotiff/Outputs/*OV.tiff"):
-            name = pathlib.Path(file).stem
+            name = str(pathlib.Path(file).stem)
             try:
                 self.geo.create_coveragestore(layer_name = name, path = file, workspace = 'AusSeabed')
                 self.geo.publish_style(layer_name = name, style_name = 'Bathymetry_transparent', workspace = 'AusSeabed')
+                self.change_band_name(coverage_name = name, band_name = 'ELEVATION')
                 print('\nOverlay {:} has been created and published'.format(name))
             except Exception:
-                raise Exception
+                raise
             
-            self.change_band_name(coverage_name = name, band_name = 'ELEVATION')
+            
 
     def publish_hillshades(self):
 
         for file in glob.glob("FP Geotiff/Outputs/*HS.tiff"):
-            name = pathlib.Path(file).stem
+            name = str(pathlib.Path(file).stem)
             try: 
                 self.geo.create_coveragestore(layer_name = name, path = file, workspace = 'AusSeabed')
                 self.geo.publish_style(layer_name = name, style_name = 'Bathymetry_hillshade', workspace = 'AusSeabed')
+                self.change_band_name(coverage_name = name, band_name = 'SHADED_RELIEF')
                 print('\nHillshade {:} has been created and published'.format(name))
             except Exception:
-                raise Exception
+                raise
 
-            self.change_band_name(coverage_name = name, band_name = 'SHADED_RELIEF')
+            
 
 
     def publish_shapefile(self):
