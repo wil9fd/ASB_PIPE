@@ -71,7 +71,7 @@ class ASB:
 
     def publish_shapefile(self):
         for file in glob.glob("Shapefile/Outputs/*.shp") :
-            zip_file = os.path.splitext(file)[0]+'.zip'
+            zip_file = pathlib.Path(file).stem+'.zip'
 
             with ZipFile(zip_file, 'w') as zipf:
                 zipf.write(file)
