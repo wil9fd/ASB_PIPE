@@ -84,7 +84,7 @@ class ASB:
             name = pathlib.Path(file).stem
 
             try:
-                self.geo.create_datastore(name = name, path = file, workspace = 'AusSeabed')
+                self.geo.create_shp_datastore(name = name, path = file, workspace = 'AusSeabed')
                 self.geo.publish_style(layer_name = name, style_name = 'BBOX', workspace = 'AusSeabed')
                 print('\nShapefile {:} has been created and published'.format(name))
             except Exception:
