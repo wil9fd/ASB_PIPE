@@ -72,11 +72,13 @@ class ASB:
     def publish_shapefile(self):
         os.chdir(str(self.voyage_path) + "/Shapefile/Outputs")
 
-        for file in glob.glob("*.shp"):
-            zip_file = pathlib.Path(file).stem + '.zip'
-
+        stem_list = [pathlib.Path(file).stem for file in glob.glob("*.shp")]
+                    
+        for stem in stem_list:
+            zip_file = stem + '.zip'
             with ZipFile(zip_file, 'w') as zipf:
-                zipf.write(file)
+                for file in glob.glob(stem+'.*'):
+                    zipf.write(file)
 
         for file in glob.glob("*.zip"):
             name = pathlib.Path(file).stem
@@ -87,6 +89,8 @@ class ASB:
                 print('\nShapefile {:} has been created and published'.format(name))
             except Exception:
                 raise Exception
+
+            os.remove(file)
 
      
 asb = ASB()
