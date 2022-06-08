@@ -66,7 +66,7 @@ class ASB:
         for file in glob.glob("Shapefile/Outputs/*.shp") :
             name = pathlib.Path(file).stem
             print('\nShapefile {:} has been created and published'.format(file))
-            self.geo.create_datastore(name = name, path = file, workspace = 'AusSeabed')
+            self.geo.create_shp_datastore(store_name = name, path = file, workspace = 'AusSeabed', file_extension = 'shp')
             self.geo.publish_featurestore(workspace='AusSeabed', store_name=name, pg_table=name)
             self.geo.publish_style(layer_name = name, style_name = 'BBOX', workspace = 'AusSeabed')
 
