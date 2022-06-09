@@ -1,6 +1,7 @@
 from geo.Geoserver import Geoserver
 from geoserver.catalog import Catalog
 from xml.etree import ElementTree
+import getpass
 import requests
 import zipfile 
 import pathlib
@@ -16,9 +17,9 @@ class ASB:
 
 
     def get_voyage_folder(self):
-
+        # Set the main directory to the reference-AusSeabed folder 
         self.root_path = "/datasets/work/ncmi-gsm/reference/AusSeabed/"
-
+        self.root_path = r'C:\Users\wil9fd\ASB_geoserver\\'
         self.voyage_id = input('\nPLEASE ENTER THE VOYAGE ID:\n').lower()
         # If the voyage ID can't be found prompt again
         while not pathlib.Path(self.root_path + self.voyage_id).exists():
@@ -29,18 +30,20 @@ class ASB:
                 sys.exit("\nBye-bye")
 
         self.voyage_path = pathlib.Path(self.root_path + self.voyage_id)
+        # Change the working directory to the relevant voyage
         os.chdir(self.voyage_path)
 
    
     def logins(self):
+        # Prompt for Geoserver logins 
         self.usrnm = input('\nInput Geoserver username: ')
 
         if self.usrnm.lower() == "exit":
             sys.exit("\nBye-bye")
 
-        self.pword = input('\nInput geoserver password: ')
+        self.pword = getpass.getpass('\nInput Geoserver password: ')
 
-    
+    # Connect to csiro's geoserver
     def connect(self):
         try:
             self.geo = Geoserver('https://www.cmar.csiro.au/geoserver', username=self.usrnm, password = self.pword)
@@ -50,7 +53,7 @@ class ASB:
             print('\nGeoserver connection could not be established. Check username and password. Type exit to leave.\n')
             self.logins()
     
-
+    # Change the layer's xml to input the desired band name
     def change_band_name(self, coverage_name: str, band_name: str):
         url = 'https://www.cmar.csiro.au/geoserver/rest/workspaces/AusSeabed/coveragestores/{:}/coverages/{:}'.format(coverage_name, coverage_name)
         r = requests.get(url, auth = (self.usrnm, self.pword))
@@ -62,6 +65,7 @@ class ASB:
         #jsondict['coverage']['dimensions']['coverageDimension'][0]['name'] = band_name
         r_change_band_name = requests.put(url, auth = (self.usrnm, self.pword), data = data, headers = {'content-type': 'text/xml'})
 
+    # Crawl throught the geotiff outputs folder and publish the overlays
     def publish_overlays(self):
 
         for file in glob.glob("FP Geotiff/Outputs/*OV.tiff"):
@@ -74,8 +78,7 @@ class ASB:
             except Exception:
                 raise
             
-            
-
+    # Crawl throught the geotiff outputs folder and publish the hillshades
     def publish_hillshades(self):
 
         for file in glob.glob("FP Geotiff/Outputs/*HS.tiff"):
@@ -90,7 +93,7 @@ class ASB:
 
             
 
-
+    # Crawl throught the shapefiles folder, add all shapefiles and auxiliary files to zip file and publish 
     def publish_shapefile(self):
         os.chdir(str(self.voyage_path) + "/Shapefile/Outputs")
 

@@ -71,8 +71,8 @@ Simply paste the following into PUTTY:
 bash uninstall.sh
 
 ```
-## Publishing via ASB_PIPE
-The script ```asb_publish.py``` deals with publishing a voyage folder's overlays, hillshades and shapefiles to CSIRO's geoserver. 
+# Publishing via ASB_PIPE
+The script ```asb_publish.py``` deals with publishing a voyage folder's overlays, hillshades and shapefiles to CSIRO's geoserver. This script should not be run twice for the same voyage without deleting the primary publication. The overwrite parameter in geoserver-rest was not functional at the time of writing. 
 
 # Details: 
 ASB_PIPE consists of several scripts which produce AusSeabed geotiff, shapefile and metadata products.
