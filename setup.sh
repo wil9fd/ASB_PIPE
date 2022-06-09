@@ -2,7 +2,6 @@
 mkdir -p /datasets/work/ncmi-gsm/reference/miniconda3
 wget https://repo.anaconda.com/miniconda/Miniconda3-py39_4.10.3-Linux-x86_64.sh -O /datasets/work/ncmi-gsm/reference/miniconda3/miniconda.sh
 bash /datasets/work/ncmi-gsm/reference/miniconda3/miniconda.sh -b -u -p /datasets/work/ncmi-gsm/reference/miniconda3
-export PATH="~/miniconda3/bin:$PATH"
 rm -rf /datasets/work/ncmi-gsm/reference/miniconda3/miniconda.sh
 
 # Initialise conda
@@ -28,5 +27,8 @@ conda install -n ASB -c conda-forge requests=2.27.1 -y
 echo "conda activate ASB" >> ~/.bashrc
 echo "conda config --set auto_activate_base false" >> ~/.bashrc
 echo "cd /datasets/work/ncmi-gsm/reference/asb_pipe" >> ~/.bashrc
+
+alias asb_python='/datasets/work/ncmi-gsm/reference/miniconda3/envs/ASB/bin/python3'
+
 
 exec bash

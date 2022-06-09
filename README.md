@@ -51,7 +51,7 @@ To run a program e.g. asb_vis_beta.py you must **ensure your conda ASB env is ac
 
 Then run a la; 
 ```
-python asb_pipe.py
+asb_python asb_pipe.py
 ```
 >_Ensure you explicity define the path to the script. i.e. python path/to/script.py_
 
