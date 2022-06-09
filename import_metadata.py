@@ -83,15 +83,14 @@ def import_metadata(root_input, voyage_input):
                     nsmap = md.get_namespaces(meta_file)
                     survey_id = md.get_survey_id(meta_file)
                     survey_name = md.get_survey_name(meta_file)
-
+                    
+                    filename = md.get_filename('No overlay found in geotiff outputs folder')
                     if Path(inpath_3).exists():
                         for ov_file in ov_file_list:
                             if all(parts in ov_file for parts in schema):
-                                filename = md.get_filename(ov_file)
-                            else:
-                                filename = md.get_filename('No overlay found in geotiff outputs folder')
-                    else:
-                        filename = md.get_filename('No overlay found in geotiff outputs folder')
+                                ov_match = ov_file
+                                filename = md.get_filename(ov_match)
+                        
 
                     licence = md.get_licence()
                     source = md.get_source()

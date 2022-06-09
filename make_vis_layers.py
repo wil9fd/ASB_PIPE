@@ -50,7 +50,7 @@ def make_vis_layers(root_input, voyage_input):
         
     # Loop through all the tiff files in the folder
     # Exclude files with these strings (hillshade, HS, OV) in it's name
-    for file in (set(glob.glob("*.tif*")) - set(glob.glob("*Hillshade.tif*") or glob.glob("*HS.tif*") or glob.glob("*OV.tif*"))):
+    for file in (set(glob.glob("*_DepthFP.tif*")) - set(glob.glob("*Hillshade.tif*") or glob.glob("*HS.tif*") or glob.glob("*OV.tif*"))):
         
         os.chdir(inpath)
         
