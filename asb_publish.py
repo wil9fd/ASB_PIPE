@@ -19,7 +19,7 @@ class ASB:
     def get_voyage_folder(self):
         # Set the main directory to the reference-AusSeabed folder 
         self.root_path = "/datasets/work/ncmi-gsm/reference/AusSeabed/"
-        self.root_path = r'C:\Users\wil9fd\ASB_geoserver\\'
+
         self.voyage_id = input('\nPLEASE ENTER THE VOYAGE ID:\n').lower()
         # If the voyage ID can't be found prompt again
         while not pathlib.Path(self.root_path + self.voyage_id).exists():
