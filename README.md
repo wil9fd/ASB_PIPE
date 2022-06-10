@@ -24,6 +24,7 @@ ASB_PIPE is a set of tools written in Python to aid in the automation of publish
 
 
 # Installation: 
+# FOR ADMIN
 _**The installation and application of the pipeline are performed through PUTTY on CSIRO's HPC (High Powered Computing) server.**_
 * Open remote access and login to the bracewell-HPC server
 * Open Putty
@@ -45,6 +46,18 @@ ___
 **NOTE:** 
 * _The installation will automatically start conda, activate the environment and cd into the ASB_PIPE directory._
 ___
+
+# NOTE FOR NON ADMIN 
+The setup and install should already have been performed by the admin e.g. Cisco.
+So no conda environment or setup, update is required (or possible).
+
+The only prior setup is to create an alias to the environment python file to have access to the required packages for running the asb pipe scripts.
+
+## Non-admin Setup
+Copy paste the following into putty:
+```
+alias asb_python='/datasets/work/ncmi-gsm/reference/miniconda3/envs/ASB/bin/python3'
+```
 
 # Operation:
 To run a program e.g. asb_vis_beta.py you must **ensure your conda ASB env is active within PUTTY**
